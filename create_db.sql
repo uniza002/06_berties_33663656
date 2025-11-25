@@ -16,8 +16,8 @@ CREATE TABLE IF NOT EXISTS books (
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT,
     username VARCHAR(16),
-    firstname VARCHAR(20),
-    lastname VARCHAR(20),
+    firstname VARCHAR(50),
+    lastname VARCHAR(50),
     email VARCHAR(254),
     hashedPassword VARCHAR(256),
     PRIMARY KEY(id));

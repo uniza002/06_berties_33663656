@@ -43,7 +43,7 @@ router.post('/bookadded', function (req, res, next) {
             next(err)
         }
         else
-            res.send(' This book is added to database, name: '+ req.body.name + ' price '+ req.body.price)
+            res.send('This book is added to database, name: '+ req.body.name + ' price '+ req.body.price)
     })
 }) 
 

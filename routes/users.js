@@ -6,6 +6,9 @@ const saltRounds = 10
 const express = require("express")
 const router = express.Router()
 
+// Input validation
+const { check, validationResult } = require('express-validator');
+
 // Redirect logins
 const redirectLogin = (req, res, next) => {
     if (!req.session.userId) {
@@ -21,27 +24,39 @@ router.get('/register', function (req, res, next) {
 })
 
 // Register a user by saving their details to the database
-router.post('/registered', function (req, res, next) {
-    const plainPassword = req.body.password
+router.post('/registered', 
+    [check('email').isEmail(), 
+    check('username').isLength({ min: 5, max: 20}), 
+    check('password').isLength({ min: 8 }),
+    check('first').isLength({ min: 2, max: 50 }),
+    check('last').isLength({ min: 2, max: 50 })], 
+    function (req, res, next) {
+        const errors = validationResult(req);
 
-    // Encrypt the password and store the data in the database
-    bcrypt.hash(plainPassword, saltRounds, function(err, hashedPassword) {
-    
-    // Store data into variables
-    let sqlquery = "INSERT INTO users (username, firstname, lastname, email, hashedPassword) VALUES (?,?,?,?,?)"
-    let newrecord = [req.body.username, req.body.first, req.body.last, req.body.email, hashedPassword]
+        if (!errors.isEmpty()) {
+            res.render('./register')
+        } else { 
+            const plainPassword = req.body.password
 
-    // Add the user info to the database and print the result to the page
-    db.query(sqlquery, newrecord, (err, result) => {
-        if (err) {
-            next(err)
+            // Encrypt the password and store the data in the database
+            bcrypt.hash(plainPassword, saltRounds, function(err, hashedPassword) {
+            
+            // Store data into variables
+            let sqlquery = "INSERT INTO users (username, firstname, lastname, email, hashedPassword) VALUES (?,?,?,?,?)"
+            let newrecord = [req.sanitize(req.body.username), req.sanitize(req.body.first), req.sanitize(req.body.last), req.sanitize(req.body.email), hashedPassword]
+
+            // Add the user info to the database and print the result to the page
+            db.query(sqlquery, newrecord, (err, result) => {
+                if (err) {
+                    next(err)
+                }
+                else
+                    result = 'Hello '+ req.sanitize(req.body.first) + ' '+ req.sanitize(req.body.last) +' you are now registered!  We will send an email to you at ' + req.sanitize(req.body.email) + '</p>'
+                    result += 'Your password is: '+ req.body.password +' and your hashed password is: '+ hashedPassword
+                    res.send(result)
+                })
+            })
         }
-        else
-            result = 'Hello '+ req.body.first + ' '+ req.body.last +' you are now registered!  We will send an email to you at ' + req.body.email + '</p>'
-            result += 'Your password is: '+ req.body.password +' and your hashed password is: '+ hashedPassword
-            res.send(result)
-        })
-    })
 })
 
 // List users page
@@ -92,8 +107,6 @@ router.post('/loggedin', function (req, res, next) {
         })
     });
 })
-
-
 
 // Export the router object so index.js can access it
 module.exports = router

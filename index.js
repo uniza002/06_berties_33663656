@@ -4,6 +4,7 @@ var ejs = require('ejs')
 const path = require('path')
 var mysql = require('mysql2')
 var session = require('express-session')
+const expressSanitizer = require('express-sanitizer');
 require('dotenv').config()
 
 // Create the express application object
@@ -18,6 +19,9 @@ app.use(express.urlencoded({ extended: true }))
 
 // Set up public folder (for css and static js)
 app.use(express.static(path.join(__dirname, 'public')))
+
+// Create an input sanitizer
+app.use(expressSanitizer());
 
 // Define our application-specific data
 app.locals.shopData = {shopName: "Bertie's Books"}
@@ -56,8 +60,6 @@ app.use('/users', usersRoutes)
 // Load the route handlers for /books
 const booksRoutes = require('./routes/books')
 app.use('/books', booksRoutes)
-
-
 
 // Start the web app listening
 app.listen(port, () => console.log(`Bertie's Books server now listening on port ${port}`))
