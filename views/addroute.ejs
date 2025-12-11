@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%=healthAppData.appName%></title>
+    <link rel="stylesheet"  type="text/css" href="/main.css" />
+  </head>
+  <body>
+    <h1><%=healthAppData.appName%>: Add a route</h1>
+    <form method="POST" action="routeadded">
+        <p>Route name: <input id="name" type="text" name="name" /></p>
+        <p>Distance (mi): <input id="distance" type="number" name="distance" /></p>
+        <input type="submit" value="Add Route" />
+      </form>
+  </body>
+</html>

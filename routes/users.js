@@ -18,6 +18,11 @@ const redirectLogin = (req, res, next) => {
     } 
 }
 
+// Redirect if a user attempts to browse to this route directly
+router.get('/', function (req, res, next) {
+    res.redirect('../')
+})
+
 // Print Register page
 router.get('/register', function (req, res, next) {
     res.render('register.ejs')
@@ -26,7 +31,7 @@ router.get('/register', function (req, res, next) {
 // Register a user by saving their details to the database
 router.post('/registered', 
     [check('email').isEmail(), 
-    check('username').isLength({ min: 5, max: 20}), 
+    check('username').isLength({ min: 4, max: 20}), 
     check('password').isLength({ min: 8 }),
     check('first').isLength({ min: 2, max: 50 }),
     check('last').isLength({ min: 2, max: 50 })], 
@@ -52,7 +57,6 @@ router.post('/registered',
                 }
                 else
                     result = 'Hello '+ req.sanitize(req.body.first) + ' '+ req.sanitize(req.body.last) +' you are now registered!  We will send an email to you at ' + req.sanitize(req.body.email) + '</p>'
-                    result += 'Your password is: '+ req.body.password +' and your hashed password is: '+ hashedPassword
                     res.send(result)
                 })
             })
@@ -86,9 +90,9 @@ router.post('/loggedin', function (req, res, next) {
             next(err); 
         }
         
-        // Don't attempt to log in unless the user types a valid username in
+        // Inform the user they didn't enter a username
         if (result.length === 0) {
-            return res.send('You must enter a username.'); 
+            return res.send('<script>alert("You must enter a username."); window.location.href = "' + req.baseUrl + '/login"; </script>');
         }
 
         // Grab the hashed password value from the databse
@@ -100,7 +104,7 @@ router.post('/loggedin', function (req, res, next) {
                 next(err)
             } else if (result == true) {
                 req.session.userId = req.body.username;
-                res.send('Logged in');
+                res.send('Logged in. <a href="../../">Home</a>');
             } else {
                 res.send('Incorrect login details. Try again.')
             }

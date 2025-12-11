@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%=healthAppData.appName%> - Scoreboard</title>
+    <link rel="stylesheet"  type="text/css" href="/main.css" />
+  </head>
+  <body>
+    <h1><%=healthAppData.appName%> - Routes</h1>
+    <h2>Scoreboard</h2>
+    <table>
+    <tr>
+      <th>Route</th>
+      <th>Runner name</th>
+      <th>Time (s)</th>
+    </tr>
+    <% currentScores.forEach(function(score) { %>
+        <tr>
+          <td><%= score.routename %></td>
+          <td><%= score.runnername %></td>
+          <td><%= score.time %></td>
+        </tr>
+    <% }); %>
+    </table>
+    <p></p><a href="submit">Submit a score</a>
+  </body>
+</html>

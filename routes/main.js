@@ -5,7 +5,7 @@ const router = express.Router()
 // Redirect logins
 const redirectLogin = (req, res, next) => {
     if (!req.session.userId) {
-      res.send('You are not logged in. Log in to add a book.') // Tell the user if they aren't logged in
+      res.send('You are not logged in.') // Tell the user if they aren't logged in
     } else { 
         next(); // move to the next middleware function
     } 
@@ -20,8 +20,8 @@ router.get('/about',function(req, res, next){
     res.render('about.ejs')
 });
 
-router.get('/books/addbook', redirectLogin, function(req, res, next){
-    res.render('addbook.ejs'); 
+router.get('/routes/addroute', redirectLogin, function(req, res, next){
+    res.render('addroute.ejs'); 
 });
 
 router.get('/logout', redirectLogin, (req,res) => {

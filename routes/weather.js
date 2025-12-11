@@ -17,16 +17,19 @@ router.get('/now', (req, res, next) => {
 
     request(url, function (err, response, body) { 
         var weather = JSON.parse(body)
-
+        
         if (weather!==undefined && weather.main!==undefined) {
-            var wmsg = 'It is '+ weather.main.temp + 
-            ' degrees in '+ weather.name +
-            '! <br> The humidity now is: ' + 
-            weather.main.humidity;
+            const description = weather.weather[0].description;
+
+            var wmsg = weather.name + 
+            '<br><br> Temperature: '+ weather.main.temp + '°C '+ 
+            '<br> Humidity: ' + weather.main.humidity + '%' +
+            '<br> The current weather is ' + description + '.' + 
+            '<br><br> Lets get running!';
             
             res.send (wmsg);
         } else {
-            res.send ("No data found");
+            res.send ('No data found. Please enter a valid city name and <a href="' + req.baseUrl + '">try again</a>.');
         }
     });
 });

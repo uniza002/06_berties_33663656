@@ -1,1 +1,10 @@
 home=http://www.doc.gold.ac.uk/usr/372/
+about=https://www.doc.gold.ac.uk/usr/372/about
+scores=https://www.doc.gold.ac.uk/usr/372/scores
+submit_score=https://www.doc.gold.ac.uk/usr/372/scores/submit_score
+routes=https://www.doc.gold.ac.uk/usr/372/routes/list
+add_route=https://www.doc.gold.ac.uk/usr/372/routes/addroute
+search_routes=https://www.doc.gold.ac.uk/usr/372/routes/search
+current_weather=https://www.doc.gold.ac.uk/usr/372/weather
+
+

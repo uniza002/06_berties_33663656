@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Submit score for <%=healthAppData.appName%></title>
+    <link rel="stylesheet"  type="text/css" href="/main.css" />
+  </head>
+  <body>
+    <h1>Submit score</h1>
+    <form method="POST" action="submitted">
+        <p>Route: <input id="routename" type="text" name="routename" /></p>
+        <p>Time (s): <input id="time" type="number" name="time" /></p>
+        <p>Your name: <input id="runnername" type="text" name="runnername" /></p>
+        <input type="submit" value="Submit" />
+      </form>
+  </body>
+</html>

@@ -1,18 +1,17 @@
-# Create database script for Berties books
+# Create database script for Health site
 
 # Create the database
-CREATE DATABASE IF NOT EXISTS berties_books;
-USE berties_books;
+CREATE DATABASE IF NOT EXISTS health_app_db;
+USE health_app_db;
 
-# Create books tables
-CREATE TABLE IF NOT EXISTS books (
+# Create routes tables
+CREATE TABLE IF NOT EXISTS routes (
     id     INT AUTO_INCREMENT,
     name   VARCHAR(50),
-    price  DECIMAL(5, 2),
+    distance  DECIMAL(5, 2),
     PRIMARY KEY(id));
 
 # Create users table
-
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT,
     username VARCHAR(16),
@@ -22,7 +21,14 @@ CREATE TABLE IF NOT EXISTS users (
     hashedPassword VARCHAR(256),
     PRIMARY KEY(id));
 
+# Create scoreboard table
+CREATE TABLE IF NOT EXISTS scores (
+    id INT AUTO_INCREMENT,
+    routename    VARCHAR(50),
+    runnername  VARCHAR(50),
+    time        INT,
+    PRIMARY KEY(id));
     
 # Create the application user
-CREATE USER IF NOT EXISTS 'berties_books_app'@'localhost' IDENTIFIED BY 'qwertyuiop'; 
-GRANT ALL PRIVILEGES ON berties_books.* TO ' berties_books_app'@'localhost';
+CREATE USER IF NOT EXISTS 'health_app'@'localhost' IDENTIFIED BY 'qwertyuiop'; 
+GRANT ALL PRIVILEGES ON health_app_db.* TO ' health_app'@'localhost';

@@ -3,36 +3,36 @@ const express = require("express")
 const router = express.Router()
 
 router.get('/',function(req, res, next){
-    res.render('inputbook.ejs')
+    res.render('findroute.ejs')
 });
 
-router.get('/books', function (req, res, next) {
-    let book = req.query.search;
-    let minprice = req.query.minprice;
-    let maxprice = req.query.maxprice;
-    let sort = req.query.sort || "name";
+router.get('/routes', function (req, res, next) {
+    let route = req.query.search;
+    let mindist = req.query.mindist;
+    let maxdist = req.query.maxdist;
+    let sort = req.query.sort || "distance";
 
     // SQL query construction
-    let sqlquery = "SELECT * FROM books";
+    let sqlquery = "SELECT * FROM routes";
     let conditions = [];
     let parameters = [];
 
     // Search query for book name
-    if (book) {
+    if (route) {
         conditions.push("name LIKE ?");
-        parameters.push("%" + book + "%");
+        parameters.push("%" + route + "%");
     }
 
     // Search query for minimum price
-    if (minprice) {
-        conditions.push("price >= ?");
-        parameters.push(minprice);
+    if (mindist) {
+        conditions.push("distance >= ?");
+        parameters.push(mindist);
     }
 
     // Search query for maximum price
-    if (maxprice) {
-        conditions.push("price <= ?");
-        parameters.push(maxprice);
+    if (maxdist) {
+        conditions.push("distance <= ?");
+        parameters.push(maxdist);
     }
 
     // Append WHERE to SQL query if any conditions exist

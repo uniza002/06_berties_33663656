@@ -1,4 +1,4 @@
-// Import express and ejs
+// Import express and ejs, along with other modules
 var express = require ('express')
 var ejs = require('ejs')
 const request = require('request')
@@ -26,14 +26,14 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(expressSanitizer());
 
 // Define our application-specific data
-app.locals.shopData = {shopName: "Bertie's Books"}
+app.locals.healthAppData = {appName: "Speed Demons"}
 
 // Define the database connection pool from the .env file
 const db = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
+    host: process.env.HEALTH_HOST,
+    user: process.env.HEALTH_USER,
+    password: process.env.HEALTH_PASSWORD,
+    database: process.env.HEALTH_DATABASE,
     
     connectionLimit: 10,
     waitForConnections: true,
@@ -59,17 +59,21 @@ app.use('/', mainRoutes)
 const usersRoutes = require('./routes/users')
 app.use('/users', usersRoutes)
 
-// Load the route handlers for /books
-const booksRoutes = require('./routes/books')
-app.use('/books', booksRoutes)
+// Load the route handlers for /routes
+const routesRoutes = require('./routes/routes')
+app.use('/routes', routesRoutes)
 
 // Load the route handlers for /weather
 const weatherRoutes = require('./routes/weather')
 app.use('/weather', weatherRoutes)
+
+// Load the route handlers for /scores
+const scoresRoutes = require('./routes/scores')
+app.use('/scores', scoresRoutes)
 
 // Load the route handlers for /api
 const apiRoutes = require('./routes/api')
 app.use('/api', apiRoutes)
 
 // Start the web app, listening on the specified port
-app.listen(port, () => console.log(`Bertie's Books server now listening on port ${port}`))
+app.listen(port, () => console.log(`Web app now listening on port ${port}`))

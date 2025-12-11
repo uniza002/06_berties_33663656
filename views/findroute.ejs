@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%=healthAppData.appName%> - Route Search</title>
+    <link rel="stylesheet"  type="text/css" href="/main.css" />
+  </head>
+  <body>
+    <h1>Search for a route</h1>
+    <form action="/api/routes" method="get">
+        <label for="route">Enter a route name:</label>
+        <input type="text" id="search" name="search">
+        <p></p>
+        <label for="mindist">Minimum distance:</label>
+        <input type="number" id="mindist" name="mindist">
+        <p></p>
+        <label for="maxdist">Maximum distance:</label>
+        <input type="number" id="maxdist" name="maxdist">
+        <p></p>
+        <label for="sort">Sort by:</label>
+        <select id="sort" name="sort">
+            <option value="distance">Distance</option>
+            <option value="name">Name</option>
+        </select>
+        <p></p>
+        <button type="submit">Search</button>
+    </form>
+  </body>
+</html>
+
+
+
+

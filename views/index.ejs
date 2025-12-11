@@ -1,18 +1,21 @@
 <!doctype html>
 <html>
   <head>
-    <title>Welcome to <%=shopData.shopName%></title>
+    <title>Welcome to <%=healthAppData.appName%></title>
     <link rel="stylesheet"  type="text/css" href="/main.css" />
   </head>
   <body>
-    <h1>Welcome to <%=shopData.shopName%></h1>
-    <p><a href="about">About <%=shopData.shopName%></a></p>
-    <p><a href="books/search">Search for books</a></p>
+    <h1>Welcome to <%=healthAppData.appName%></h1>
+    <p><a href="about">About <%=healthAppData.appName%></a></p>
+    <p><a href="routes/search">Search for a route</a></p>
     <p><a href="users/register">Register with us</a></p>
-    <p><a href="books/addbook">Add a book</a></p>
-    <p><a href="books/list">List all current books</a></p>
+    <p><a href="routes/addroute">Add a route</a></p>
+    <p><a href="routes/list">List all routes</a></p>
+    <p><a href="scores/">View scores</a></p>
+    <p><a href="scores/submit">Submit score</a></p>
     <p><a href="weather">Weather</a></p>
+    <p><a href="/users/list">Current members</a></p>
     <p><a href="users/login">Log in</a></p>
-    <p><a href="logout">Log out of <%=shopData.shopName%></a></p>
+    <p><a href="logout">Log out of <%=healthAppData.appName%></a></p>
   </body>
 </html>
